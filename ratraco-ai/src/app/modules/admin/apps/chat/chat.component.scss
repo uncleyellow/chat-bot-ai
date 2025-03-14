@@ -1,0 +1,33 @@
+#chat-box {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+
+/* Tùy chỉnh giao diện tin nhắn */
+.text-right div {
+    background-color: #2563eb; /* Màu xanh user */
+    color: white;
+}
+
+.text-left div {
+    background-color: #e5e7eb; /* Màu xám bot */
+    color: black;
+}
+
+#chat-box {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+/* Tin nhắn */
+.text-right div {
+    background-color: #2563eb; /* Màu xanh user */
+    color: white;
+}
+
+.text-left div {
+    background-color: #e5e7eb; /* Màu xám bot */
+    color: black;
+}
+
