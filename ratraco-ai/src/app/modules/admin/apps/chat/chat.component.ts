@@ -59,20 +59,25 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     loadChatHistory(): void {
         this.chatService.getChatHistory().subscribe(
             history => {
-                this.messages = history.map(chat => ({
-                    text: chat.bot_reply || chat.user_message,
-                    sender: chat.bot_reply ? 'bot' : 'user'
-                }));
+                this.messages = []; // Xóa danh sách cũ trước khi nạp mới
+                
+                history.forEach(chat => {
+                    if (chat.user_message) {
+                        this.messages.push({ text: chat.user_message, sender: 'user' });
+                    }
+                    if (chat.bot_reply) {
+                        this.messages.push({ text: chat.bot_reply, sender: 'bot' });
+                    }
+                });
             },
             error => console.error('⚠️ Lỗi tải lịch sử chat:', error)
         );
     }
-
+    
     scrollToBottom(): void {
-        setTimeout(() => {
-            if (this.chatBox) {
-                this.chatBox.nativeElement.scrollTop = this.chatBox.nativeElement.scrollHeight;
-            }
-        }, 100);
+        const chatBox = document.getElementById("chat-box");
+        if (chatBox) {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
     }
 }
