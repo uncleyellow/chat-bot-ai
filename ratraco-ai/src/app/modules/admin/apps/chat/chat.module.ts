@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 const chatRoutes: Route[] = [
     {
@@ -25,7 +26,8 @@ const chatRoutes: Route[] = [
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        RouterModule.forChild(chatRoutes)
+        RouterModule.forChild(chatRoutes),
+        MatIconModule
     ]
 })
 export class ChatModule

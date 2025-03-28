@@ -1,42 +1,52 @@
-<div class="flex flex-col flex-auto min-w-0 h-auto bg-gray-50">
-    <!-- Main chat box -->
-    <div class="flex-auto p-6 flex flex-col">
-        <div #chatBox id="chat-box" class="flex-auto overflow-y-auto p-4 bg-white rounded-2xl shadow-md space-y-3 h-[500px] max-h-[500px]">
+<div class="flex flex-col flex-auto min-w-0 h-auto bg-gray-50 p-6">
+    <!-- Main chat container -->
+    <div class="flex-auto flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden">
+        
+        <!-- Chat messages -->
+        <div #chatBox id="chat-box"
+            class="flex-auto overflow-y-auto p-6 space-y-3 h-[500px] max-h-[500px] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            
             <ng-container *ngFor="let msg of messages">
-                <div [ngClass]="msg.sender === 'user' ? 'justify-end' : 'justify-start'" class="flex items-center w-full">
+                <div [ngClass]="msg.sender === 'user' ? 'justify-end' : 'justify-start'"
+                    class="flex items-center w-full">
                     
-                    <!-- Avatar ChatGPT -->
+                    <!-- Avatar bot -->
                     <img *ngIf="msg.sender === 'bot'" 
-                         src="https://mangohotel.vn/wp-content/uploads/2023/11/logo-duoi-web.png" 
-                         class="w-8 h-8 rounded-full mr-2">
+                        src="https://mangohotel.vn/wp-content/uploads/2023/11/logo-duoi-web.png"
+                        class="w-10 h-10 rounded-full shadow-md mr-2">
 
+                    <!-- Chat bubble -->
                     <div [ngClass]="msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'"
-                        class="px-4 py-2 rounded-xl shadow-md max-w-md">
+                        class="px-4 py-3 rounded-xl shadow-md max-w-lg text-sm leading-relaxed">
                         {{ msg.text }}
                     </div>
 
-                    <!-- Avatar User -->
+                    <!-- Avatar user -->
                     <img *ngIf="msg.sender === 'user'" 
-                         src="https://ui-avatars.com/api/?name=User" 
-                         class="w-8 h-8 rounded-full ml-2">
+                        src="https://ui-avatars.com/api/?name=User"
+                        class="w-10 h-10 rounded-full shadow-md ml-2">
                 </div>
             </ng-container>
 
-            <!-- Hiển thị trạng thái đang xử lý -->
-            <div *ngIf="isLoading" class="flex justify-start items-center mt-2">
-                <img src="https://mangohotel.vn/wp-content/uploads/2023/11/logo-duoi-web.png" class="w-8 h-8 rounded-full mr-2">
-                <div class="px-4 py-2 rounded-xl bg-gray-300 text-gray-800 shadow-md max-w-md">
-                    Đang xử lý...
+            <!-- Loading message -->
+            <div *ngIf="isLoading" class="flex justify-start items-center mt-3">
+                <img src="https://mangohotel.vn/wp-content/uploads/2023/11/logo-duoi-web.png"
+                    class="w-10 h-10 rounded-full shadow-md mr-2">
+                <div class="px-4 py-3 rounded-xl bg-gray-300 text-gray-800 shadow-md max-w-lg">
+                    <span class="typing-dots"></span>
                 </div>
             </div>
         </div>
 
         <!-- Input field -->
-        <div class="mt-4 flex items-center gap-3">
-            <mat-form-field class="flex-1">
-                <input matInput [(ngModel)]="userInput" (keypress)="handleKeypress($event)" placeholder="Nhập tin nhắn...">
+        <div class="p-4 flex items-center border-t border-gray-200 bg-gray-100">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Nhập tin nhắn...</mat-label>
+                <input matInput [(ngModel)]="userInput" (keyup.enter)="sendMessage()">
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="sendMessage()">Gửi</button>
+            <button mat-icon-button color="primary" class="ml-3" (click)="sendMessage()">
+                <mat-icon>send</mat-icon>
+            </button>
         </div>
     </div>
 </div>
